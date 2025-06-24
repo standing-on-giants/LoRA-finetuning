@@ -18,40 +18,20 @@ cd TradeVision
 pip install -r requirements.txt
 ```
 
+```bash
+python inference.py --image_dir /path/to/your/images
+```
+
+Example  :
+
+```bash
+python inference.py --image_dir ./images/small
+```
+
 Quick Start
 1. **Download ABO Dataset**: Get the small variant (3GB) from Amazon Berkeley Objects
-2. **Generate VQA Dataset**:
+2. **Generate VQA Dataset**: By running the "Data Curation.ipynb" notebook
 
-```
-bash
-```
-
-
-```bash
-python data_curation/gemini_qa_generation.py --data_path /path/to/abo
-```
-
-1. **Run Baseline Evaluation**:
-
-```
-bash
-```
-
-
-```bash
-python models/baseline_evaluation.py --dataset_path ./datasets/vqa_dataset.csv
-```
-
-1. **Fine-tune with LoRA**:
-
-```
-bash
-```
-
-
-```bash
-python models/blip_lora_training.py --epochs 3 --batch_size 4 --rank 16
-```
 
 ### Key Features
 * **Automated Dataset Curation**: Uses Gemini API to generate 54K image-question-answer triplets
@@ -59,27 +39,28 @@ python models/blip_lora_training.py --epochs 3 --batch_size 4 --rank 16
 * **Multi-Model Support**: BLIP and ViLT baseline comparisons
 * **Comprehensive Evaluation**: Accuracy, F1-Score, and BERTScore metrics
 * **Resource Optimized**: Designed for free cloud GPU platforms
-Training Configuration
 
-```
-ParameterValueBase ModelSalesforce/blip-vqa-baseLoRA Rank16LoRA Alpha32Learning Rate5e-5Batch Size4Epochs3
-```
+## Configuration used for training
 
-## Results Summary
+| Parameter | Value |
+|-----------|-------|
+| Base Model | Salesforce/blip-vqa-base |
+| LoRA Rank | 16 |
+| LoRA Alpha | 32 |
+| Learning Rate | 5e-5 |
+| Batch Size | 4 |
+| Epochs | 3 |
 
-```
-ModelAccuracyF1 ScoreTrainable ParamsBLIP Baseline31.05%0.45385MBLIP + LoRA70.30%0.481.2M
-```
-## Requirements
-* Python 3.8+
-* PyTorch 1.11+
-* Transformers 4.20+
-* PEFT library
-* Google Colab or Kaggle (recommended)
+## Summary of results
+
+| Model | Accuracy | F1 Score | Trainable Params |
+|-------|----------|----------|------------------|
+| BLIP Baseline | 31.05% | 0.45 | 385M |
+| BLIP + LoRA | **70.30%** | **0.48** | **1.2M** |
 
 ## Contributors
-* [Your Name] - Dataset curation, LoRA implementation
-* [Teammate 1] - Baseline evaluation, metrics
-* [Teammate 2] - Model optimization, analysis  
+* Shashank Devarmani - LoRA implementation, model analysis and selection, debugging
+* Soham Pawar - Baseline evaluation, and debugging
+* Aaryan Dev - Dataset cleaning and dataset curation
 
 
